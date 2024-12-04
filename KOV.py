@@ -496,7 +496,7 @@ def startKOV(csvFileName, model_name, is_baseline=True, suffix_token=8, topk=32,
         results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, benchmark_indices=[0,1], temperature=0,
                                 suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
     else:
-        results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, temperature = temperature,
+        results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, benchmark_indices=range(0, len(pd.read_csv(csvFileName))) , temperature = temperature,
                                 suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
 
     all_results = []
