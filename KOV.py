@@ -490,8 +490,14 @@ def startKOV(csvFileName, model_name, is_baseline=True, suffix_token=8, topk=32,
 
     # results = test_transfer(fn_training_data, target_model, csvFileName, model_name, benchmark_indices=[0,1], temperature=0, verbose=True)
     # results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline=True, temperature=0, verbose=True)
-    results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, temperature,
-                            suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
+    # results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, temperature,
+    #                         suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
+    if is_baseline:
+        results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, benchmark_indices=[0,1], temperature=0,
+                                suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
+    else:
+        results = test_transfer(fn_training_data, target_model, csvFileName, model_name, is_baseline, temperature = temperature,
+                                suffix_token=suffix_token, topk=topk, use_mean=use_mean, verbose=True)
 
     all_results = []
 
@@ -506,8 +512,6 @@ def startKOV(csvFileName, model_name, is_baseline=True, suffix_token=8, topk=32,
             print(f"Suffixes Length: {length}")
         print(f"Responses: {result['responses']}")
         print(f"Scores: {result['scores']}")
-
-
 
         # Since suffixes, responses, scores are lists, iterate over them
         for suffix, response, score in zip(result['suffixes'], result['responses'], result['scores']):
