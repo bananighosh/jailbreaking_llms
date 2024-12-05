@@ -527,5 +527,5 @@ def startKOV(csvFileName, model_name, is_baseline=True, suffix_token=8, topk=32,
     df = pd.DataFrame(all_results)
 
     # Save the DataFrame to a CSV file
-    df.to_csv('kov_results.csv', index=False, encoding='utf-8')
+    df.to_csv('kov_results.csv', index=False, encoding='utf-8', escapechar='\\')
     print("Results have been saved to 'kov_results.csv'.")
